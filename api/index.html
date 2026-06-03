@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Currency Converter</title>
+</head>
+<body>
+  <h1>💱 Currency Converter</h1>
+
+  <input id="amount" placeholder="Amount (e.g. 100)" />
+  <input id="rate" placeholder="Rate (e.g. 330)" />
+
+  <button onclick="convert()">Convert</button>
+
+  <h2 id="result"></h2>
+
+  <script>
+    async function convert() {
+      const amount = document.getElementById("amount").value;
+      const rate = document.getElementById("rate").value;
+
+      const response = await fetch(`/api/convert?amount=${amount}&rate=${rate}`);
+      const data = await response.json();
+
+      if (data.error) {
+        document.getElementById("result").innerText = data.error;
+      } else {
+        document.getElementById("result").innerText =
+          "Converted Value: " + data.converted;
+      }
+    }
+  </script>
+</body>
+</html>
